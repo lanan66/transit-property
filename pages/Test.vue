@@ -6,268 +6,365 @@
 
 <script setup>
 import * as echarts from "echarts";
-import * as echartsGL from "echarts-gl";
+import geoJson from "../src/assets/static/map-data/guangzhou.json";
+import chinaJson from "../src/assets/static/china.json"
+var mapName = "mapName"
+var option
 onMounted(() => {
-  initChart();
+  // initChart();
+  init();
 });
-
-function initChart() {
-  var myEcharts = echarts.init(
-    document.getElementById("liner"),
-    "purple-passion"
-  );
-  var mapJson = "/src/assets/static/440100_full.json";
-  var option = {
-    backgroundColor: "#fff",
-    tooltip: {
-      show: true, // 提示框
-      trigger: "item",
-      formatter: function (params) {
-        return params.name;
-      },
-    },
-    geo3D: {
-      show: true,
-      map: "centerMap",
-      left: "0%",
-      roam: true,
-      zoom: 2,
-      regionHeight: 5,
-      label: {
-        show: true,
-        distance: 0,
-        // position: "inside",
-        // padding: [6, 8],
-        borderRadius: 0,
-        distanca: 0,
-        textStyle: {
-          fontSize: 14,
-          color: "#ff0000", // 地图初始化区域字体颜色
-          borderWidth: 0,
-          borderColor: "#000",
-        },
-      },
-      itemStyle: {
-        // 三维地理坐标系组件 中三维图形的视觉属性，包括颜色，透明度，描边等。
-        color: "#0a599f", // 地图板块的颜色
-        opacity: 1, // 图形的不透明度 [ default: 1 ]
-        borderWidth: 2, // (地图板块间的分隔线)图形描边的宽度。加上描边后可以更清晰的区分每个区域   [ default: 0 ]
-        borderColor: "#6AEBF5", // 图形描边的颜色。[ default: #333 ]
-      },
-      emphasis: {
-        label: {
-          show: true,
-          color: "#fff000",
-        },
-        itemStyle: {
-          color: "#ff0",
-          opacity: 1,
-        },
-      },
-      // shading: "color",
-      light: {
-        // 光照阴影
-        main: {
-          color: "#FFFFFF", // 光照颜色
-          intensity: 2, // 光照强度
-          shadowQuality: "light", // 阴影亮度
-          shadow: true, // 是否显示阴影
-          alpha: 50,
-          beta: 10,
-        },
-        // },
-        // ambient: {
-        //   color: "#ff0",
-        //   intensity: 0.1,
-        // },
-      },
-      regions: [],
-      viewControl: {
-        projection: "perspective",
-        autoRotate: false,
-        autoRotateAfterStill: 3,
-        distance: 159.1931248935421,
-        alpha: 43.592048936336816,
-        beta: -30.48683006219769,
-        minAlpha: 5,
-        maxAlpha: 90,
-        minBeta: -1036800,
-        maxBeta: 1036800,
-        animation: true,
-        animationDurationUpdate: 1000,
-        animationEasingUpdate: "cubicInOut",
-        orthographicSize: 60,
-        autoRotateDirection: "cw",
-        autoRotateSpeed: 10,
-        damping: 0.8,
-        rotateSensitivity: 1,
-        zoomSensitivity: 1,
-        panSensitivity: 1,
-        panMouseButton: "middle",
-        rotateMouseButton: "left",
-        minDistance: 40,
-        maxDistance: 400,
-        maxOrthographicSize: 400,
-        minOrthographicSize: 20,
-        center: [0, 0, 0],
-      },
-    },
-    series: [
-      {
-        type: "map3D", // 加载series数据
-        map: "centerMap",
-        regionHeight: 0,
-        boxHeight: 500,
-        left: 0,
-        itemStyle: {
-          // 三维地理坐标系组件 中三维图形的视觉属性，包括颜色，透明度，描边等。
-          color: "rgba(4,63,115,0)", // 地图板块的颜色
-          opacity: 0, // 图形的不透明度 [ default: 1 ]
-          borderWidth: 0, // (地图板块间的分隔线)图形描边的宽度。加上描边后可以更清晰的区分每个区域   [ default: 0 ]
-          borderColor: "#69E8F5", // 图形描边的颜色。[ default: #333 ]
-        },
-        label: {
-          show: true,
-          color: "#ff0000",
-        },
-        regions: [],
-        zlevel: 5,
-        viewControl: {
-          projection: "perspective",
-          autoRotate: false,
-          autoRotateAfterStill: 3,
-          distance: 120,
-          alpha: 30,
-          beta: 10,
-          // autoRotateSpeed: 27.777777,
-          minAlpha: 5, // 上下旋转的最小 alpha 值。即视角能旋转到达最上面的角度。[ default: 5 ]
-          maxAlpha: 90, // 上下旋转的最大 alpha 值。即视角能旋转到达最下面的角度。[ default: 90 ]
-          minBeta: -1036800, // 左右旋转的最小 beta 值。即视角能旋转到达最左的角度。[ default: -80 ]
-          maxBeta: 1036800, // 左右旋转的最大 beta 值。即视角能旋转到达最右的角度。[ default: 80 ]
-          animation: true, // 是否开启动画。[ default: true ]
-          animationDurationUpdate: 1000, // 过渡动画的时长。[ default: 1000 ]
-          animationEasingUpdate: "cubicInOut", // 过渡动画的缓动效果。[ default: cubicInOut ]
-        },
-      },
-      {
-        type: "scatter3D",
-        coordinateSystem: "geo3D",
-        data: [],
-        // geo3DIndex: 1,
-        // blendMode: "lighter",
-        // symbol: "path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z",
-        // 此处引用svg动图
-        // symbol: "image://images/circle.svg",
-        // symbol: "image://https://microwd-1307391726.cos.ap-beijing.myqcloud.com/huimin/circle.svg",
-        symbol: "pin",
-        symbolSize: 20,
-        animation: true,
-        animationDurationUpdate: 500,
-        geo3DIndex: 0,
-        silent: false,
-        itemStyle: {
-          opacity: 1,
-          width: 1,
-        },
-        shading: "lambert",
-        label: {
-          show: true,
-          position: "right",
-          distance: 0, // 距离图形元素的距离
-          // borderColor: "#4AF0A7", //点边框颜色
-          // opacity: 0.8, //点的透明度 1不透明
-          // borderWidth: 1, //图形描边宽度
-          // borderType: "solid",
-          // borderRadius: [4, 4, 4, 4],
-          // padding: [4, 10, 2, 10],
-          // backgroundColor: "rgba(74,240,167,0.40)",
-          // formatter: function (params) {
-          //    var text = params.data.text.replace("\n", "");
-          //    if (params.data.type === "get") {
-          //       return "{get|" + text + "}{date11|" + params.data.date + "}";
-          //    } else {
-          //       return "{set|" + text + "}{date11|" + params.data.date + "}";
-          //    }
-          // },
-          color: "#ff0000",
-          backgroundColor: "rgba(255, 255, 255, 0)",
-          rich: {
-            get: {
-              color: "#00E3FF",
-              lineHeight: 12,
-            },
-            set: {
-              color: "#FFF100",
-              lineHeight: 12,
-            },
-            date11: {
-              color: "#FFFFFF",
-              lineHeight: 12,
-            },
-          },
-          zlevel: 6,
-        },
-        emphasis: {
-          itemStyle: {
-            color: "#FFF200",
-          },
-          label: {
-            show: false,
-          },
-        },
-        zlevel: 6,
-      },
-    ],
-  };
-
-  myEcharts.showLoading();
-
-  $.getJSON(mapJson, function (geoJson) {
-    echarts.registerMap("centerMap", geoJson);
-    myEcharts.hideLoading();
-
-    var areaMapData = [
-      {
-        name: "海拉尔区",
-        value: 500,
-      },
-      {
-        name: "扎赉诺尔区",
-        value: 200,
-      },
-      {
-        name: "阿荣旗",
-        value: 100,
-      },
-    ];
-    var mapFeatures = echarts.getMap("centerMap").geoJson.features;
-    var geoCoordMap = {};
-    mapFeatures.forEach(function (v) {
-      // 地区名称
-      var name = v.properties.name;
-      // 地区经纬度
-      geoCoordMap[name] = v.properties.center;
-    });
-
-    var convertData = function (data) {
-      var res = [];
-      for (var i = 0; i < data.length; i++) {
+// 柱状体的主干
+function lineData() {
+    return toolTipData.map((item) => {
+        return {
+            coords: [geoCoordMap[item.name], [geoCoordMap[item.name][0], geoCoordMap[item.name][1] + 1.5]]
+        }
+    })
+}
+// 柱状体的顶部
+function scatterData() {
+    return toolTipData.map((item) => {
+        return [geoCoordMap[item.name][0], geoCoordMap[item.name][1] + 2, item]
+    })
+} 
+function init(){
+  var myChart = echarts.init(document.getElementById("liner"));
+  echarts.registerMap(mapName, chinaJson);
+  var mapFeatures = echarts.getMap(mapName).geoJson.features;
+  mapFeatures.forEach(function (v) {
+    // 地区名称
+    var name = v.properties.name;
+    // 地区经纬度
+    geoCoordMap[name] = v.properties.cp;
+});
+var convertData = function (data) {
+    var res = [];
+    for (var i = 0; i < data.length; i++) {
         var geoCoord = geoCoordMap[data[i].name];
         if (geoCoord) {
-          res.push({
-            name: data[i].name,
-            value: geoCoord.concat(data[i].value),
-          });
+            res.push({
+                name: data[i].name,
+                value: geoCoord.concat(data[i].value),
+            });
         }
-      }
-      return res;
-    };
-    console.log(convertData(areaMapData));
-    //option.series[0].data = convertData(areaMapData);
+    }
+    return res;
+};
+option = {
+    backgroundColor: "#003366",
+    title: {
+        show: true,
+        text: "项目分布图",
+        x: 'center',
+        top: "10",
+        textStyle: {
+            color: "#fff",
+            fontFamily: "等线",
+            fontSize: 18,
+        },
+    },
 
-    myEcharts.setOption(option);
-  });
+    geo: [{
+        layoutCenter: ['50%', '50%'],//位置
+        layoutSize: '180%',//大小
+        show: true,
+        map: mapName,
+        roam: false,
+        zoom: 0.65,
+        aspectScale: 1,
+        label: {
+            normal: {
+                show: false,
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            emphasis: {
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                }
+            }
+        },
+        itemStyle: {
+            normal: {
+                areaColor: {
+                    type: "linear",
+                    x: 1200,
+                    y: 0,
+                    x2: 0,
+                    y2: 0,
+                    colorStops: [{
+                        offset: 0,
+                        color: "rgba(3,27,78,0.75)", // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: "rgba(58,149,253,0.75)", // 50% 处的颜色
+                    },],
+                    global: true, // 缺省为 false
+                },
+                borderColor: "#c0f3fb",
+                borderWidth: 1,
+                shadowColor: "#8cd3ef",
+                shadowOffsetY: 10,
+                shadowBlur: 120,
+            },
+            emphasis: {
+                areaColor: "rgba(0,254,233,0.6)",
+                // borderWidth: 0
+            }
+        }
+    }, {
+        type: "map",
+        map: mapName,
+        zlevel: -1,
+        aspectScale: 1,
+        zoom: 0.65,
+        layoutCenter: ["50%", "51%"],
+        layoutSize: "180%",
+        roam: false,
+        silent: true,
+        itemStyle: {
+            normal: {
+                borderWidth: 1,
+                // borderColor:"rgba(17, 149, 216,0.6)",
+                borderColor: "rgba(58,149,253,0.8)",
+                shadowColor: "rgba(172, 122, 255,0.5)",
+                shadowOffsetY: 5,
+                shadowBlur: 15,
+                areaColor: "rgba(5,21,35,0.1)",
+            },
+        },
+    }, {
+        type: "map",
+        map: mapName,
+        zlevel: -2,
+        aspectScale: 1,
+        zoom: 0.65,
+        layoutCenter: ["50%", "52%"],
+        layoutSize: "180%",
+        roam: false,
+        silent: true,
+        itemStyle: {
+            normal: {
+                borderWidth: 1,
+                // borderColor: "rgba(57, 132, 188,0.4)",
+                borderColor: "rgba(58,149,253,0.6)",
+                shadowColor: "rgba(65, 214, 255,1)",
+                shadowOffsetY: 5,
+                shadowBlur: 15,
+                areaColor: "transpercent",
+            },
+        },
+    }, {
+        type: "map",
+        map: mapName,
+        zlevel: -3,
+        aspectScale: 1,
+        zoom: 0.65,
+        layoutCenter: ["50%", "53%"],
+        layoutSize: "180%",
+        roam: false,
+        silent: true,
+        itemStyle: {
+            normal: {
+                borderWidth: 1,
+                // borderColor: "rgba(11, 43, 97,0.8)",
+                borderColor: "rgba(58,149,253,0.4)",
+                shadowColor: "rgba(58,149,253,1)",
+                shadowOffsetY: 15,
+                shadowBlur: 10,
+                areaColor: "transpercent",
+            },
+        },
+    }, {
+        type: "map",
+        map: mapName,
+        zlevel: -4,
+        aspectScale: 1,
+        zoom: 0.65,
+        layoutCenter: ["50%", "54%"],
+        layoutSize: "180%",
+        roam: false,
+        silent: true,
+        itemStyle: {
+            normal: {
+                borderWidth: 5,
+                // borderColor: "rgba(11, 43, 97,0.8)",
+                borderColor: "rgba(5,9,57,0.8)",
+                shadowColor: "rgba(29, 111, 165,0.8)",
+                shadowOffsetY: 15,
+                shadowBlur: 10,
+                areaColor: "rgba(5,21,35,0.1)",
+            },
+        },
+    },],
+    series: [
+    
+        // 柱状体的顶部
+        {
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            geoIndex: 0,
+            zlevel: 5,
+            label: {
+                normal: {
+                    show: true,
+                    formatter: function (params) {
+                        var name = params.data[2].name
+                        var value = params.data[2].value
+                        var text = `{tline|${name}} : {fline|${value}}个`
+                        // var text = `{tline|项目个数} : {fline|${value}}`
+                        return text;
+                    },
+                    color: '#fff',
+                    rich: {
+                        fline: {
+                            // padding: [0, 25],
+                            color: '#fff',
+                            fontSize: 14,
+                            fontWeight: 600
+                        },
+                        tline: {
+                            // padding: [0, 27],
+                            color: '#ABF8FF',
+                            fontSize: 12,
+                        },
+                    }
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            itemStyle: {
+                color: '#00FFF6',
+                opacity: 1
+            },
+            symbol: img2,
+            symbolSize: [110, 60],
+            symbolOffset: [0, -20],
+            z: 999,
+            data: scatterData(),
+        },
+
+    ],
+};
+myChart.setOption(option);
 }
+var img2 = 'image://data:image/png;base64,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';
+var mapName = 'china';
+var data = [
+    { name: '北京', value: 5 },
+    { name: '天津', value: 14 },
+    { name: '河北', value: 157 },
+    { name: '山西', value: 110 },
+    { name: '内蒙古', value: 40 },
+    { name: '辽宁', value: 40 },
+    { name: '吉林', value: 40 },
+    { name: '黑龙江', value: 60 },
+    { name: '上海', value: 10 },
+    { name: '江苏', value: 60 },
+    { name: '浙江', value: 50 },
+    { name: '安徽', value: 151 },
+    { name: '福建', value: 60 },
+    { name: '江西', value: 74 },
+    { name: '山东', value: 200 },
+    { name: '河南', value: 100 },
+    { name: '湖北', value: 40 },
+    { name: '湖南', value: 50 },
+    { name: '重庆', value: 40 },
+    { name: '四川', value: 120 },
+    { name: '贵州', value: 135 },
+    { name: '云南', value: 90 },
+    { name: '西藏', value: 25 },
+    { name: '陕西', value: 100 },
+    { name: '甘肃', value: 60 },
+    { name: '青海', value: 20 },
+    { name: '宁夏', value: 110 },
+    { name: '新疆', value: 32 },
+    { name: '广东', value: 10 },
+    { name: '广西', value: 100 },
+    { name: '海南', value: 40 },
+];
+
+
+var toolTipData = [
+    {
+        name: '湖南',
+        value: 5,
+        areas: ["长沙", "株洲", "益阳"]
+    },
+    {
+        name: '安徽',
+        value: 3,
+        areas: ["合肥", "芜湖"]
+    },
+    {
+        name: '山东',
+        value: 80,
+        areas: ["济南", "青岛", "淄博", "烟台", "威海", "临沂"]
+    },
+    {
+        name: '四川',
+        value: 35,
+        areas: ["成都", "攀枝花", "乐山", "泸州"]
+    },
+    {
+        name: '云南',
+        value: 27,
+        areas: ["昆明", "玉溪", "丽江", "普洱", "临沧"]
+    },
+    {
+        name: '黑龙江',
+        value: 13,
+        areas: ["哈尔滨", "鹤岗", "黑河", "绥化", "大庆", "佳木斯"]
+    },
+    {
+        name: '甘肃',
+        value: 42,
+        areas: ["兰州", "嘉峪关", "天水", "酒泉"]
+    },
+    {
+        name: '西藏',
+        value: 74,
+        areas: []
+    }
+];
+var geoCoordMap = {
+    '黑龙江': [127.9688, 45.368],
+    '内蒙古': [110.3467, 41.4899],
+    "吉林": [125.8154, 44.2584],
+    '北京市': [116.4551, 40.2539],
+    "辽宁": [123.1238, 42.1216],
+    "河北": [114.4995, 38.1006],
+    "天津": [117.4219, 39.4189],
+    "山西": [112.3352, 37.9413],
+    "陕西": [109.1162, 34.2004],
+    "甘肃": [103.5901, 36.3043],
+    "宁夏": [106.3586, 38.1775],
+    "青海": [101.4038, 36.8207],
+    "新疆": [87.611053, 43.828171],
+    "西藏": [91.117212, 29.646922],
+    "四川": [103.9526, 30.7617],
+    "重庆": [108.384366, 30.439702],
+    "山东": [117.1582, 36.8701],
+    "河南": [113.4668, 34.6234],
+    "江苏": [118.8062, 31.9208],
+    "安徽": [117.29, 32.0581],
+    "湖北": [114.3896, 30.6628],
+    "浙江": [119.5313, 29.8773],
+    "福建": [119.4543, 25.9222],
+    "江西": [116.0046, 28.6633],
+    "湖南": [113.0823, 28.2568],
+    "贵州": [106.6992, 26.7682],
+    "云南": [102.9199, 25.4663],
+    "广东": [113.12244, 23.009505],
+    "广西": [108.479, 23.1152],
+    "海南": [110.3893, 19.8516],
+    "台湾": [120.702967, 24.123621],
+    '上海': [121.4648, 31.2891]
+};
 </script>
 
 <style scoped>

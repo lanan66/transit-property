@@ -1,16 +1,17 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../pages/Home.vue";
-import Test from "../pages/Test.vue";
+import Innermap from '../pages/Innermap.vue';
+
 
 const routes = [
   { path: "/", 
     name:"Home",
-    component: Home 
+    component: Home,
   },
-  { path: "/Test", 
-    name:"Test",
-    component: Test 
-  }
+  { path: "/Innermap", 
+    name:"Innermap",
+    component: Innermap,
+  },
 ];
 
 // 3. 创建路由实例并传递 `routes` 配置

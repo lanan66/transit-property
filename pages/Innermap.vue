@@ -77,10 +77,22 @@
       </div>
       <!-- 中间区域 -->
       <div class="center-con">
+        <div class="address-title">{{ title }}</div>
         <div class="search">
           <Search></Search>
         </div>
-        <Map></Map>
+        <!-- 地图 -->
+        <NanShaMap v-if="title == '南沙区'"></NanShaMap>
+        <PanYuMap v-if="title == '番禺区'"></PanYuMap>
+        <HaiZhuMap v-if="title == '海珠区'"></HaiZhuMap>
+        <LiWanMap v-if="title == '荔湾区'"></LiWanMap>
+        <YueXiuMap v-if="title == '越秀区'"></YueXiuMap>
+        <TianHeMap v-if="title == '天河区'"></TianHeMap>
+        <BaiYunMap v-if="title == '白云区'"></BaiYunMap>
+        <HuangPuMap v-if="title == '黄埔区'"></HuangPuMap>
+        <ZengChengMap v-if="title == '增城区'"></ZengChengMap>
+        <HuaDuMap v-if="title == '花都区'"></HuaDuMap>
+        <CongHuaMap v-if="title == '从化区'"></CongHuaMap>
       </div>
       <!-- 右边区域 -->
       <div class="right-con">
@@ -93,88 +105,91 @@
           </div>
           <div class="clean-con">
             <!-- 保洁内容区域 -->
-          <div class="clean-main">
-            <div class="border">
-              <img src="/src/assets/static/image/decoration-left.png" alt="">
+            <div class="clean-main">
+              <div class="border">
+                <img
+                  src="/src/assets/static/image/decoration-left.png"
+                  alt=""
+                />
+              </div>
+              <!-- 清洁项 -->
+              <div class="clean-item">
+                <div class="status-img">
+                  <img src="/src/assets/static/image/routine-img.png" alt="" />
+                </div>
+                <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
+                <div class="clean-item-info">
+                  <div class="clean-item-people">项目负责人:张三</div>
+                  <div class="clean-item-status">打卡状态:正常</div>
+                </div>
+                <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
+                <div class="clean-item-address">
+                  打卡地点:广州市白云区江夏街道XXXX公交站点A2333
+                </div>
+                <div class="clean-item-images">
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                </div>
+              </div>
+              <div class="clean-item">
+                <div class="status-img">
+                  <img src="/src/assets/static/image/routine-img.png" alt="" />
+                </div>
+                <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
+                <div class="clean-item-info">
+                  <div class="clean-item-people">项目负责人:张三</div>
+                  <div class="clean-item-status">打卡状态:正常</div>
+                </div>
+                <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
+                <div class="clean-item-address">
+                  打卡地点:广州市白云区江夏街道XXXX公交站点A2333
+                </div>
+                <div class="clean-item-images">
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                </div>
+              </div>
+              <div class="clean-item">
+                <div class="status-img">
+                  <img src="/src/assets/static/image/routine-img.png" alt="" />
+                </div>
+                <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
+                <div class="clean-item-info">
+                  <div class="clean-item-people">项目负责人:张三</div>
+                  <div class="clean-item-status">打卡状态:正常</div>
+                </div>
+                <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
+                <div class="clean-item-address">
+                  打卡地点:广州市白云区江夏街道XXXX公交站点A2333
+                </div>
+                <div class="clean-item-images">
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                </div>
+              </div>
+              <div class="clean-item">
+                <div class="status-img">
+                  <img src="/src/assets/static/image/routine-img.png" alt="" />
+                </div>
+                <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
+                <div class="clean-item-info">
+                  <div class="clean-item-people">项目负责人:张三</div>
+                  <div class="clean-item-status">打卡状态:正常</div>
+                </div>
+                <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
+                <div class="clean-item-address">
+                  打卡地点:广州市白云区江夏街道XXXX公交站点A2333
+                </div>
+                <div class="clean-item-images">
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                  <img src="/src/assets/static/image/demo.png" alt="" />
+                </div>
+              </div>
             </div>
-            <!-- 清洁项 -->
-            <div class="clean-item">
-              <div class="status-img">
-                <img src="/src/assets/static/image/routine-img.png" alt="">
-              </div>
-              <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
-              <div class="clean-item-info">
-                <div class="clean-item-people">项目负责人:张三</div>
-                <div class="clean-item-status">打卡状态:正常</div>
-              </div>
-              <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
-              <div class="clean-item-address">
-                打卡地点:广州市白云区江夏街道XXXX公交站点A2333
-              </div>
-              <div class="clean-item-images">
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-              </div>
-            </div>
-            <div class="clean-item">
-              <div class="status-img">
-                <img src="/src/assets/static/image/inspection-img.png" alt="">
-              </div>
-              <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
-              <div class="clean-item-info">
-                <div class="clean-item-people">项目负责人:张三</div>
-                <div class="clean-item-status">打卡状态:正常</div>
-              </div>
-              <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
-              <div class="clean-item-address">
-                打卡地点:广州市白云区江夏街道XXXX公交站点A2333
-              </div>
-              <div class="clean-item-images">
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-              </div>
-            </div>
-            <div class="clean-item">
-              <div class="status-img">
-                <img src="/src/assets/static/image/inspection-img.png" alt="">
-              </div>
-              <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
-              <div class="clean-item-info">
-                <div class="clean-item-people">项目负责人:张三</div>
-                <div class="clean-item-status">打卡状态:正常</div>
-              </div>
-              <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
-              <div class="clean-item-address">
-                打卡地点:广州市白云区江夏街道XXXX公交站点A2333
-              </div>
-              <div class="clean-item-images">
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-              </div>
-            </div>
-            <div class="clean-item">
-              <div class="status-img">
-                <img src="/src/assets/static/image/routine-img.png" alt="">
-              </div>
-              <div class="clean-item-name">项目名称:白云区XX公交站清洁</div>
-              <div class="clean-item-info">
-                <div class="clean-item-people">项目负责人:张三</div>
-                <div class="clean-item-status">打卡状态:正常</div>
-              </div>
-              <div class="clean-item-time">打卡时间:2024-01-22 12:22:22</div>
-              <div class="clean-item-address">
-                打卡地点:广州市白云区江夏街道XXXX公交站点A2333
-              </div>
-              <div class="clean-item-images">
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-                <img src="/src/assets/static/image/demo.png" alt="" />
-              </div>
-            </div>
-          </div>
           </div>
         </div>
       </div>
@@ -184,13 +199,29 @@
 
 <script setup>
 import Cirque from "../src/components/Cirque.vue";
-import Map from "../src/components/Map.vue";
+import NanShaMap from "../src/components/NanShaMap.vue";
+import PanYuMap from "../src/components/PanYuMap.vue";
+import HaiZhuMap from "../src/components/HaiZhuMap.vue";
+import LiWanMap from "../src/components/LiWanMap.vue";
+import YueXiuMap from "../src/components/YueXiuMap.vue";
+import TianHeMap from "../src/components/TianHeMap.vue";
+import BaiYunMap from "../src/components/BaiYunMap.vue";
+import HuangPuMap from "../src/components/BaiYunMap.vue";
+import ZengChengMap from "../src/components/ZengChengMap.vue";
+import HuaDuMap from "../src/components/HuaDuMap.vue";
+import CongHuaMap from "../src/components/CongHuaMap.vue";
+
 import Search from "../src/components/Search.vue";
+
+import { useRouter, useRoute } from "vue-router";
+
 import * as echarts from "echarts";
 import * as echartsGL from "echarts-gl";
 onMounted(() => {
   initChart();
 });
+const route = useRoute();
+let title = route.query.title;
 
 const tabsList = ref([
   {
@@ -587,7 +618,6 @@ function initChart() {
   };
   myEcharts.setOption(option);
 }
-
 </script>
 
 <style scoped>
@@ -891,10 +921,22 @@ function initChart() {
   width: 100%;
   height: 100%;
 }
-.clean-item-time,.clean-item-address {
+.clean-item-time,
+.clean-item-address {
   margin-top: 15px;
   font-size: 12px;
   color: #fff;
   opacity: 0.6;
 }
-</style>
+.address-title {
+  position: absolute;
+  width: 200px;
+  font-size: 30px;
+  text-align: center;
+  color: #19fcde;
+  left: 50%;
+  top: -50px;
+  font-weight: 600;
+  transform: translateX(-50%);
+}
+</style>../src/components/HaiZhuMap.vue../src/components/PanYuMap.vue

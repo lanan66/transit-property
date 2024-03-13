@@ -11,8 +11,8 @@
   "dependencies": {
     "autofit.js": "^3.0.7",
     "axios": "^1.6.7",
-    "echarts": "^5.4.3",
-    "echarts-gl": "^2.0.9",
+    "echarts": "^4.7.0",
+    "echarts-gl": "^1.1.2",
     "unplugin-auto-import": "^0.17.5",
     "vue": "^3.2.47",
     "vue-router": "^4.2.5"
